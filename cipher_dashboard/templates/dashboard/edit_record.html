@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Record{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 w-75 ">
+
+    <div class="card shadow-lg border-0 rounded-0">
+
+        <div class="card-header">
+            <h4>Edit Cipher Record</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {% csrf_token %}
+                
+                <div class="card border-0">
+                    <div class="card-header bg-warning-subtle">
+                        Protected Fields
+                    </div>
+                    <div class="card-body">
+                
+                        <div class="mb-3">
+                            <label class="form-label"> Agent Name <i class="bi bi-lock-fill text-secondary"></i></label>
+
+                            <input type="text" class="form-control bg-secondary-subtle border-secondary"
+                                value="{{ record.agent_name }}" readonly>
+
+                            <small class="text-muted"> Agent Name cannot be modified after record creation.</small>
+                        </div>
+               
+
+                        <div class="mb-3">
+                            <label class="form-label">Cipher Key <i class="bi bi-shield-lock-fill text-secondary"></i></label>
+
+                            <input type="text" class="form-control bg-secondary-subtle border-secondary" value="{{ record.masked_key }}" readonly>
+
+                            <small class="text-muted"> Cipher Key is permanently locked for security reasons. </small>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="mb-3 mx-3">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+
+                <div class="mb-3 mx-3">
+                    {{ form.ip_address.label_tag }}
+                    {{ form.ip_address }}
+                </div>
+
+                <div class="mb-3 mx-3">
+                    {{ form.section.label_tag }}
+                    {{ form.section }}
+                </div>
+
+                <div class="mb-3 mx-3">
+                    <label class="form-label">
+                        Uploaded Date
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="{{ record.uploaded_date }}"
+                        readonly>
+                </div>
+                <div class="d-flex w-100 mt-3 justify-content-center">
+                    <button type="submit" class="btn btn-primary mb-3 mx-3">Update Record </button>
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mb-3"> Cancel </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

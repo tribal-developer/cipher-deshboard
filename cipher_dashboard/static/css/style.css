@@ -1,0 +1,47 @@
+/* body{
+    background-color: rgba(38, 39, 38, 0.774);
+} */
+
+#formErrorAlert {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+.alert-hide {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+}
+
+/* Hide clear button by default */
+.search-input::-webkit-search-cancel-button {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Show clear button when input is focused */
+.search-input:focus::-webkit-search-cancel-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* user dashborad ============================= */
+/* .table td, */
+/* .table th {
+    white-space: nowrap;
+} */
+
+.card {
+    border-radius: 15px;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+code {
+    font-size: 0.9rem;
+}

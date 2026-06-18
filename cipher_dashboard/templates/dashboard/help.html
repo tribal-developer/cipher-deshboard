@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+
+{% block title %}
+Help & User Guide
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="text-center mb-4">
+        <h2>
+            <i class="bi bi-question-circle-fill text-primary"></i>
+            Help & User Guide
+        </h2>
+
+        <p class="text-muted">
+            Cipher Management System Documentation
+        </p>
+    </div>
+
+    {% if request.user.is_superuser %}
+
+    <!-- ADMIN HELP -->
+
+    <div class="alert alert-primary">
+        <h5 class="mb-0">
+            <i class="bi bi-shield-lock-fill"></i>
+            Administrator Guide
+        </h5>
+    </div>
+
+    <div class="accordion" id="adminHelpAccordion">
+
+        <!-- System Overview -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#overview">
+
+                    System Overview
+                </button>
+            </h2>
+
+            <div id="overview"
+                class="accordion-collapse collapse show">
+
+                <div class="accordion-body">
+
+                    Administrators manage cipher records and user access.
+
+                    <ul>
+                        <li>Add Cipher Records</li>
+                        <li>Edit Cipher Records</li>
+                        <li>Delete Cipher Records</li>
+                        <li>Authorize Users</li>
+                        <li>Manage Access Control</li>
+                        <li>Search Records</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Authorize User -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#authorizeUser">
+
+                    Authorize User
+                </button>
+            </h2>
+
+            <div id="authorizeUser"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    <ol>
+                        <li>Open Admin Dashboard.</li>
+                        <li>Click <strong>Add User</strong>.</li>
+                        <li>Enter Employee ID.</li>
+                        <li>Enter Designation.</li>
+                        <li>Enter Section.</li>
+                        <li>Save the User.</li>
+                    </ol>
+
+                    <div class="alert alert-warning">
+                        Only authorized users can register in the application.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Record -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#addRecord">
+
+                    Add Cipher Record
+                </button>
+            </h2>
+
+            <div id="addRecord"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    <ol>
+                        <li>Click Add Record.</li>
+                        <li>Enter Name.</li>
+                        <li>Enter Agent Name.</li>
+                        <li>Enter Section.</li>
+                        <li>Upload Cipher Key (.txt file).</li>
+                        <li>Submit the form.</li>
+                    </ol>
+
+                    <h6>Validation Rules</h6>
+
+                    <ul>
+                        <li>Agent Name must be unique.</li>
+                        <li>Cipher Key must be unique.</li>
+                        <li>Only .txt files are accepted.</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Record -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#editRecord">
+
+                    Edit Record
+                </button>
+            </h2>
+
+            <div id="editRecord"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    <p>
+                        Administrators can update:
+                    </p>
+
+                    <ul>
+                        <li>Name</li>
+                        <li>IP Address</li>
+                        <li>Section</li>
+                    </ul>
+
+                    <div class="alert alert-secondary">
+                        Agent Name and Cipher Key are protected fields and cannot be modified.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Record -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#deleteRecord">
+
+                    Delete Record
+                </button>
+            </h2>
+
+            <div id="deleteRecord"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    <ol>
+                        <li>Click Delete.</li>
+                        <li>Confirm in the popup window.</li>
+                        <li>Record will be removed permanently.</li>
+                    </ol>
+
+                    <div class="alert alert-danger">
+                        Deleted records cannot be recovered.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee ID Rules -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#employeeId">
+
+                    Employee ID Rules
+                </button>
+            </h2>
+
+            <div id="employeeId"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    Employee ID must contain exactly 6 characters.
+
+                    <br><br>
+
+                    Examples:
+
+                    <ul>
+                        <li>815527</li>
+                        <li>maint1</li>
+                        <li>maint2</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <!-- USER HELP -->
+
+    <div class="alert alert-success">
+        <h5 class="mb-0">
+            <i class="bi bi-person-fill"></i>
+            User Guide
+        </h5>
+    </div>
+
+    <div class="accordion" id="userHelpAccordion">
+
+        <!-- Registration -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#registration">
+
+                    Registration Process
+                </button>
+            </h2>
+
+            <div id="registration"
+                class="accordion-collapse collapse show">
+
+                <div class="accordion-body">
+
+                    <ol>
+                        <li>Request authorization from Administrator.</li>
+                        <li>Administrator adds your Employee ID.</li>
+                        <li>Open Registration page.</li>
+                        <li>Enter Employee ID.</li>
+                        <li>Create Username and Password.</li>
+                        <li>Login to the application.</li>
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#search">
+
+                    Search Records
+                </button>
+            </h2>
+
+            <div id="search"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    Use the search box to find records by:
+
+                    <ul>
+                        <li>Name</li>
+                        <li>Agent Name</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- View Cipher Key -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#viewKey">
+
+                    View Cipher Key
+                </button>
+            </h2>
+
+            <div id="viewKey"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    <ol>
+                        <li>Click the Eye icon.</li>
+                        <li>Popup window will open.</li>
+                        <li>View the complete Cipher Key.</li>
+                        <li>Use Copy button if needed.</li>
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Cipher Key Security -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#security">
+
+                    Cipher Key Security
+                </button>
+            </h2>
+
+            <div id="security"
+                class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    Cipher Keys are masked by default.
+
+                    <pre>asd******bnv</pre>
+
+                    Only the first 3 and last 3 characters are displayed.
+
+                    <br><br>
+
+                    Do not share Cipher Keys with unauthorized personnel.
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

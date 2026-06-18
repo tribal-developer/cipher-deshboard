@@ -1,0 +1,169 @@
+{% extends "base.html" %} 
+{% block title %}User Panel{% endblock %} 
+{% block content %}
+
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h2 class="fw-bold mb-3 mb-md-0">
+      <i class="bi bi-speedometer2"></i>
+      User Panel
+    </h2>
+
+    <!-- Search Form -->
+    <form method="GET" class="d-flex">
+      <div class="input-group">
+        <input
+          type="search"
+          name="search"
+          class="form-control"
+          placeholder="Search by Name or Agent Name..."
+          value="{{ search }}"
+          size="50"
+        />
+
+        {% if search %}
+        <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary">
+          <i class="bi bi-x-lg"></i>
+        </a>
+        {% endif %}
+
+        <button class="btn btn-primary" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!--agent Records Card -->
+  <div class="card shadow-sm border-0 mb-3">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">
+        <i class="bi bi-list-ul"></i> All Records </h5>
+    </div>
+
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>Agent Name</th>
+              <th>IP Address</th>
+              <th>Section</th>
+              <th>Key</th>
+              <th>Action</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for record in records %}
+
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ record.name }}</td>
+              <td>{{ record.agent_name }}</td>
+              <td>{{ record.ip_address }}</td>
+              <td>{{ record.section }}</td>
+              <td style="max-width: 400px;" class="font-monospace">
+                <code>{{ record.masked_key }}</code>
+              </td>
+
+              <td>
+                <button
+                  class="btn btn-sm btn-primary rounded-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#keyModal{{ record.id }}">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </td>
+
+              <td class="text-nowrap">
+                {{ record.uploaded_date|date:"d M Y H:i" }}
+              </td>
+            </tr>
+
+            <!-- View Key Modal -->
+            <div class="modal fade" id="keyModal{{ record.id }}" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Cipher Key</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <textarea id="cipherKey{{ record.id }}"
+                      class="form-control" rows="3" readonly >{{ record.cipher_key }}</textarea>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="copyCipherKey(this, '{{ record.id }}')" ><i class="bi bi-clipboard"></i> Copy Key </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" > Ok </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% empty %}
+
+            <tr>
+              <td colspan="6" class="text-center py-4">No Records Found</td>
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+
+function copyCipherKey(btn, recordId) {
+    const keyField =
+        document.getElementById(
+            'cipherKey' + recordId
+        );
+
+    navigator.clipboard.writeText(
+        keyField.value
+    ).then(() => {
+
+        const originalText =
+            btn.innerHTML;
+
+        btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Copied!';
+
+        btn.classList.remove(
+            'btn-success'
+        );
+
+        btn.classList.add(
+            'btn-primary'
+        );
+
+        setTimeout(() => {
+
+            btn.innerHTML =
+                originalText;
+
+            btn.classList.remove(
+                'btn-primary'
+            );
+
+            btn.classList.add(
+                'btn-success'
+            );
+        }, 2000);
+    });
+}
+
+</script>
+
+{% endblock %}

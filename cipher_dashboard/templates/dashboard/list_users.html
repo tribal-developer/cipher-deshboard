@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Authorise Users
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-4 card border-0">   
+        <div class="card-header">
+            <h4><i class="bi bi-shield-lock-fill"></i> Authorised Users </h4>
+        </div>  
+</div>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>User ID/ Pr No.</th>
+            <th>Designation</th>
+            <th>Section</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for user in users %}
+
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.employee_id }}</td>
+            <td>{{ user.designation }}</td>
+            <td>{{ user.section }}</td>
+            <td>
+
+                {% if user.is_registered %}
+
+                    <span class="badge bg-success">
+                        Registered
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-warning">
+                        Pending
+                    </span>
+
+                {% endif %}
+
+            </td>
+        </tr>
+        {% empty %}
+
+        <tr>
+            <td colspan="6" class="text-center text-muted py-4">
+                No Records Found
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}
