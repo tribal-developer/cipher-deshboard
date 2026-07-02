@@ -16,19 +16,20 @@
         <tr>
             <th>S.No</th>
             <th>User ID/ Pr No.</th>
+            <th>User Name</th>
             <th>Designation</th>
             <th>Section</th>
             <th>Status</th>
         </tr>
     </thead>
 
-    <tbody>
-
+    <tbody>        
         {% for user in users %}
 
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ user.employee_id }}</td>
+            <td>{{ user.employee_id }}</td>            
+            <td>{{ user.user.username }}</td>            
             <td>{{ user.designation }}</td>
             <td>{{ user.section }}</td>
             <td>
@@ -57,8 +58,7 @@
             </td>
         </tr>
 
-        {% endfor %}
-
+        {% endfor %}        
     </tbody>
 </table>
 {% endblock %}

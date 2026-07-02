@@ -12,16 +12,6 @@
 
 <div class="container-fluid py-4">
 
-  <!-- <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Admin Panel</h2>  
-
-    {% comment %} <a href="{% url 'add_record' %}" class="btn btn-primary"><i class="bi bi-plus"></i>Add Record </a> {% endcomment %}
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecordModal"><i class="bi bi-plus-lg"></i> Add User</button>      
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRecordModal"><i class="bi bi-plus-lg"></i> Add Agent</button>      
-  </div> -->
-
-  
-
   <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 
     <h2 class="mb-2 mb-md-0">
@@ -68,7 +58,7 @@
             <div class="modal-body">{% include 'dashboard/form.html' %}</div>
         </div>
     </div>
-  </div>
+  </div> 
 
   <div class="modal fade" id="addUserModal"tabindex="-1">
     <div class="modal-dialog">
@@ -258,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
         errorAlert.classList.add( 'alert-hide' );
         setTimeout(function () {
             errorAlert.remove();
-        }, 500);
+        }, 1000);
     }, 5000);
   }
 

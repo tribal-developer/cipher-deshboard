@@ -30,7 +30,7 @@ class CipherRecord(models.Model):
 class UserVerification(models.Model):
     employee_id = models.CharField( max_length=6, validators=[
             RegexValidator(r'^[a-zA-Z0-9]{6}$', 'User ID must contain 6 digits.')], unique=True)
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     designation = models.CharField( max_length=10 )
     section = models.CharField( max_length=100)
     is_registered = models.BooleanField( default=False)

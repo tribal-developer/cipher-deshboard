@@ -9,6 +9,7 @@ from .forms import CipherRecordForm
 from .models import UserVerification
 from .forms import UserVerificationForm
 from .forms import EditCipherRecordForm
+from .models import User
 
 
 @login_required
@@ -93,9 +94,11 @@ def add_record(request):
             record.save()
             messages.success(request,'Record added successfully.')            
             return redirect('admin_dashboard')
+        # else:
+        #     form = CipherRecordForm()
         
     return render( request, 'dashboard/admin_dashboard.html', {
-        'records': CipherRecord.objects.all(),'form': form,'show_modal': True})
+        'records': CipherRecord.objects.all(),'record_form': form,'show_modal': True})
 
 #  save authorise user in db
 
@@ -134,15 +137,14 @@ def authorise_user(request):
 
 
 # show authorise user in frontend
-
 @login_required
-def authorised_users(request):
+def authorised_users(request):   # list all users
 
     if not request.user.is_superuser:
         return redirect('user_dashboard')
 
     users = UserVerification.objects.all().order_by('-id')
-
+    gnrl_user = User.objects.all()
     search = request.GET.get('search', '')
 
     if search:
@@ -153,7 +155,7 @@ def authorised_users(request):
         )
 
     return render(request, 'dashboard/list_users.html',
-        {'users': users, 'search': search})
+        {'users': users, 'gnrl_user': gnrl_user, 'search': search})
 
 
 

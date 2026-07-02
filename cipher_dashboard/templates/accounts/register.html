@@ -6,26 +6,61 @@
 
 <div class="container">
 
-    <div class="row justify-content-center min-vh-100 align-items-center">
+    <div class="row justify-content-center min-vh-75 align-items-center">
 
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-6 col-lg-5 w-50">
 
-            <div class="card shadow-lg border-0">
+            <div class="card shadow-lg border-0 ">
 
-                <div class="card-body p-4">
+                <div class="card-body p-2 ">
 
-                    <h2 class="text-center mb-4">
+                    <h2 class="text-center mb-2">
                         User Registration
-                    </h2>                  
-
-                    <form method="POST">
-
+                    </h2>
+                    <hr>
+                    <form method="POST" class="px-2">
                         {% csrf_token %}
 
-                        {{ form.as_p }}
+                        <div class="mb-3">
+                            <label class="form-label">Employee ID/Pr_no.</label>
+                            <input type="text" name="employee_id" class="form-control" placeholder="Enter Employee ID"
+                                value="{{ form.employee_id.value|default:'' }}">
+                            
+                            <small id="keyHelp" class="form-text text-muted">example: 100059, main12, 815003.</small>
+                            <div class="text-danger small">
+                                {{ form.employee_id.errors }}
+                            </div>
+                        </div>
 
-                        <button type="submit" class="btn btn-primary"> Register </button>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Enter Username"
+                                value="{{ form.username.value|default:'' }}">
+                            <div class="text-danger small">
+                                {{ form.username.errors }}
+                            </div>
+                        </div>
 
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password1" class="form-control" placeholder="Enter Password">
+                            <div class="text-danger small">
+                                {{ form.password1.errors }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
+                            <div class="text-danger small">
+                                {{ form.password2.errors }}
+                            </div>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn btn-primary w-50">
+                                Register
+                            </button>
+                        </div>
                     </form>
 
                     <hr>

@@ -15,6 +15,25 @@ class CipherRecordForm(forms.ModelForm):
         model = CipherRecord
         fields = ['name','agent_name', 'ip_address', 'section']
 
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter name'
+            }),
+            'agent_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter agent name'
+            }),
+            'ip_address': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter IP address'
+            }),
+            'section': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your Department'
+            }),
+        }
+
     def clean_agent_name(self):
         agent_name = self.cleaned_data.get('agent_name')
         if CipherRecord.objects.filter(agent_name=agent_name).exists():
@@ -38,16 +57,33 @@ class CipherRecordForm(forms.ModelForm):
     
 
 class UserVerificationForm(forms.ModelForm):
-    employee_id = forms.CharField(required=True)
+    employee_id = forms.CharField(
+    required=True,
+    widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter Employee ID or Pr No.'
+    })
+    )
 
     class Meta:
         model = UserVerification
         fields = ['employee_id', 'designation', 'section']
 
+        widgets = {
+            'designation': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Your Role'
+            }),
+            'section': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your Department'
+            }),
+        }
+
     def clean_user_id(self):
         employee_id = self.cleaned_data.get('employee_id')
         if UserVerification.objects.filter(employee_id=employee_id).exists():
-            raise forms.ValidationError( 'This User Id or Pr No. Already Exists.')
+            raise forms.ValidationError( 'This E_id/User_Id or Pr No. Already Exists.')
         return employee_id
     
 
