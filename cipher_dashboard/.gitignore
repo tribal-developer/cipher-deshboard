@@ -16,7 +16,7 @@ db.sqlite3
 *.sqlite3
 
 # Media Files
-media/
+
 
 # Static Build Files
 staticfiles/
